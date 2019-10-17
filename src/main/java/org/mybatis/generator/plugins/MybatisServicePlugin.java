@@ -37,6 +37,7 @@ public class MybatisServicePlugin extends PluginAdapter{
 	private FullyQualifiedJavaType RequiredArgsConstructor;
 	private FullyQualifiedJavaType service;
 	private FullyQualifiedJavaType returnType;
+	private FullyQualifiedJavaType Date;
 	private String servicePack;
 	private String serviceImplPack;
 	private String project;
@@ -72,6 +73,7 @@ public class MybatisServicePlugin extends PluginAdapter{
 		PageHelper = new FullyQualifiedJavaType("com.github.pagehelper.PageHelper");
 		Page =  new FullyQualifiedJavaType("com.github.pagehelper.Page");
 		ISelect = new FullyQualifiedJavaType("com.github.pagehelper.ISelect");
+		Date = new FullyQualifiedJavaType("java.util.Date");
 		methods = new ArrayList<Method>();
 	}
 
@@ -394,17 +396,17 @@ public class MybatisServicePlugin extends PluginAdapter{
 		method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "pageSize"));
 		method.setVisibility(JavaVisibility.PUBLIC);
 		StringBuilder sb = new StringBuilder();
-		sb.append("// Page<"+pojoType.getShortName()+">"+" "+"page = ");
+		sb.append(" Page<"+pojoType.getShortName()+">"+" "+"page = ");
 		sb.append("PageHelper.startPage(pageNum,pageSize).doSelectPage(()->");
 		sb.append(getDaoShort());
 		sb.append("selectAll("+toLowerCase(pojoType.getShortName())+")");
-		sb.append("); // usage in jdk 8+");
+		sb.append(");");
 		sb.append("\r\n\t\t");
-		sb.append("Page<"+pojoType.getShortName()+">"+" "+"page = ");
-		sb.append("PageHelper.startPage(pageNum,pageSize).doSelectPage(new ISelect() {@Override public void doSelect() {");
-		sb.append(getDaoShort());
-		sb.append("selectAll("+toLowerCase(pojoType.getShortName())+");");
-		sb.append("}});//usage in jdk6 or jdk7");
+//		sb.append("Page<"+pojoType.getShortName()+">"+" "+"page = ");
+//		sb.append("PageHelper.startPage(pageNum,pageSize).doSelectPage(new ISelect() {@Override public void doSelect() {");
+//		sb.append(getDaoShort());
+//		sb.append("selectAll("+toLowerCase(pojoType.getShortName())+");");
+//		sb.append("}});//usage in jdk6 or jdk7");
 		sb.append("\r\n\t\t");
 		sb.append("return page;");
 		method.addBodyLine(sb.toString());
@@ -487,6 +489,21 @@ public class MybatisServicePlugin extends PluginAdapter{
 		method.addParameter(new Parameter(pojoType, toLowerCase(pojoType.getShortName())));
 		method.setVisibility(JavaVisibility.PUBLIC);
 		StringBuilder sb = new StringBuilder();
+
+		for (IntrospectedColumn introspectedColumn : introspectedTable
+				.getAllColumns()) {
+			if("gmt_update".equals(introspectedColumn.getActualColumnName())){
+				sb.append(toLowerCase(pojoType.getShortName()));
+				sb.append(".setGmtUpdate(new Date());");
+				sb.append("\r\n\t\t");
+			}
+			if("gmt_create".equals(introspectedColumn.getActualColumnName())){
+				sb.append(toLowerCase(pojoType.getShortName()));
+				sb.append(".setGmtCreate(new Date());");
+				sb.append("\r\n\t\t");
+			}
+		}
+
 		if (returnType==null) {
 			sb.append("this.");
 		} else {
@@ -676,6 +693,7 @@ public class MybatisServicePlugin extends PluginAdapter{
 		topLevelClass.addImportedType(Page);
 		topLevelClass.addImportedType(PageHelper);
 		topLevelClass.addImportedType(ISelect);
+		topLevelClass.addImportedType(Date);
 		if (enableAnnotation) {
 			topLevelClass.addImportedType(service);
 			topLevelClass.addImportedType(RequiredArgsConstructor);

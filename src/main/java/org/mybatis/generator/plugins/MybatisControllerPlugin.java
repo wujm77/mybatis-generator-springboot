@@ -39,7 +39,7 @@ public class MybatisControllerPlugin extends PluginAdapter{
 	private FullyQualifiedJavaType pojoType;
 	private FullyQualifiedJavaType pojoCriteriaType;
 	private FullyQualifiedJavaType listType;
-	private FullyQualifiedJavaType Autowired;
+//	private FullyQualifiedJavaType Autowired;
 	private FullyQualifiedJavaType service;
 	private FullyQualifiedJavaType RestController;
 	private FullyQualifiedJavaType GetMapping;
@@ -141,7 +141,7 @@ public class MybatisControllerPlugin extends PluginAdapter{
 		this.pojoUrl = context.getJavaModelGeneratorConfiguration().getTargetPackage();
 
 		if (this.enableAnnotation) {
-			Autowired = new FullyQualifiedJavaType("org.springframework.beans.factory.annotation.Autowired");
+//			Autowired = new FullyQualifiedJavaType("org.springframework.beans.factory.annotation.Autowired");
 			RestController = new FullyQualifiedJavaType("org.springframework.web.bind.annotation.RestController");
 			ModelAttribute = new FullyQualifiedJavaType("org.springframework.web.bind.annotation.ModelAttribute");
 			RequestParam = new FullyQualifiedJavaType("org.springframework.web.bind.annotation.RequestParam");
@@ -221,17 +221,17 @@ public class MybatisControllerPlugin extends PluginAdapter{
 
 		topLevelClass.addAnnotation("@RequiredArgsConstructor");
 
-		topLevelClass.addMethod(getOtherGetboolean("get"+tableName, introspectedTable, tableName));
+		topLevelClass.addMethod(getOtherGetboolean("get", introspectedTable, tableName));
 
-		topLevelClass.addMethod(getOtherSaveboolean("save"+tableName, introspectedTable, tableName));
+		topLevelClass.addMethod(getOtherSaveboolean("save", introspectedTable, tableName));
 
-		topLevelClass.addMethod(getOtherDeleteboolean("remove"+tableName, introspectedTable, tableName));
+		topLevelClass.addMethod(getOtherDeleteboolean("remove", introspectedTable, tableName));
 
-		topLevelClass.addMethod(getOtherUpdateboolean("update"+tableName, introspectedTable, tableName));
+		topLevelClass.addMethod(getOtherUpdateboolean("update", introspectedTable, tableName));
 
-		topLevelClass.addMethod(getOtherListboolean("list"+tableName, introspectedTable, tableName));
+		topLevelClass.addMethod(getOtherListboolean("list", introspectedTable, tableName));
 
-		topLevelClass.addMethod(getOtherPageboolean("page"+tableName, introspectedTable, tableName));
+		topLevelClass.addMethod(getOtherPageboolean("page", introspectedTable, tableName));
 
 		GeneratedJavaFile file = new GeneratedJavaFile(topLevelClass, project, context.getJavaFormatter());
 
@@ -270,17 +270,19 @@ public class MybatisControllerPlugin extends PluginAdapter{
 		method.setReturnType(APIRespJson);
 		method.addParameter(new Parameter(pojoType, toLowerCase(pojoType.getShortName()),"@ModelAttribute"));
 		method.setVisibility(JavaVisibility.PUBLIC);
-		method.addAnnotation("@PostMapping(\"/"+methodName+"\")");
+		method.addAnnotation("@PostMapping(\"/\")");
+		String info = "获取单个"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
+		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
 		sb.append(toLowerCase(interfaceType.getShortName())+".");
-		sb.append(methodName);
+		sb.append(methodName+tableName);
 		sb.append("(");
 		sb.append(toLowerCase(pojoType.getShortName()));
 		sb.append(");");
 		sb.append("\r\n\t\t");
 		sb.append("return new APIRespJson();");
 		method.addBodyLine(sb.toString());
-		addMethodComment(method,"插入单个"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark));
+		addMethodComment(method,info);
 		return method;
 	}
 
@@ -297,17 +299,19 @@ public class MybatisControllerPlugin extends PluginAdapter{
 		method.setReturnType(APIRespJson);
 		method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "id","@RequestParam"));
 		method.setVisibility(JavaVisibility.PUBLIC);
-		method.addAnnotation("@DeleteMapping(\"/"+methodName+"\")");
+		method.addAnnotation("@DeleteMapping(\"/{id}\")");
+		String info = "根据id删除"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
+		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
 		sb.append(toLowerCase(interfaceType.getShortName())+".");
-		sb.append(methodName);
+		sb.append(methodName+tableName);
 		sb.append("(");
 		sb.append("id");
 		sb.append(");");
 		sb.append("\r\n\t\t");
 		sb.append("return new APIRespJson();");
 		method.addBodyLine(sb.toString());
-		addMethodComment(method,"根据id删除"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark));
+		addMethodComment(method,info);
 		return method;
 	}
 
@@ -324,17 +328,19 @@ public class MybatisControllerPlugin extends PluginAdapter{
 		method.setReturnType(APIRespJson);
 		method.addParameter(new Parameter(pojoType, toLowerCase(pojoType.getShortName()),"@ModelAttribute"));
 		method.setVisibility(JavaVisibility.PUBLIC);
-		method.addAnnotation("@PatchMapping(\"/"+methodName+"\")");
+		method.addAnnotation("@PatchMapping(\"/\")");
+		String info = "修改"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
+		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
 		sb.append(toLowerCase(interfaceType.getShortName())+".");
-		sb.append(methodName);
+		sb.append(methodName+tableName);
 		sb.append("(");
 		sb.append(toLowerCase(pojoType.getShortName()));
 		sb.append(");");
 		sb.append("\r\n\t\t");
 		sb.append("return new APIRespJson();");
 		method.addBodyLine(sb.toString());
-		addMethodComment(method,"修改"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark));
+		addMethodComment(method,info);
 		return method;
 	}
 
@@ -344,20 +350,22 @@ public class MybatisControllerPlugin extends PluginAdapter{
 		method.setReturnType(APIRespJson);
 		method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "id","@PathVariable"));
 		method.setVisibility(JavaVisibility.PUBLIC);
-		method.addAnnotation("@GetMapping(/get/{id})");
+		method.addAnnotation("@GetMapping(\"/{id}\")");
+		String info = "获取单个"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
+		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
 		sb.append(pojoType.getShortName());
 		sb.append(" "+toLowerCase(pojoType.getShortName()));
 		sb.append(" = ");
 		sb.append(toLowerCase(interfaceType.getShortName())+".");
-		sb.append(methodName);
+		sb.append(methodName+tableName);
 		sb.append("(");
 		sb.append("id");
 		sb.append(");");
 		sb.append("\r\n\t\t");
 		sb.append("return new APIObjectJson("+toLowerCase(pojoType.getShortName())+");");
 		method.addBodyLine(sb.toString());
-		addMethodComment(method,"获取单个"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark));
+		addMethodComment(method,info);
 		return method;
 	}
 
@@ -369,6 +377,8 @@ public class MybatisControllerPlugin extends PluginAdapter{
 		method.addParameter(new Parameter(pojoType, toLowerCase(pojoType.getShortName()),"@ModelAttribute"));
 		method.setVisibility(JavaVisibility.PUBLIC);
 		method.addAnnotation("@GetMapping(\"/"+methodName+"\")");
+		String info = "列表获取"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
+		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
 		sb.append("List<"+pojoType.getShortName()+">");
 		sb.append(" "+toLowerCase(pojoType.getShortName())+"List");
@@ -379,7 +389,7 @@ public class MybatisControllerPlugin extends PluginAdapter{
 		sb.append("\r\n\t\t");
 		sb.append("return new APIListJson<>("+toLowerCase(pojoType.getShortName())+"List"+");");
 		method.addBodyLine(sb.toString());
-		addMethodComment(method,"获取多个"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark));
+		addMethodComment(method,info);
 		return method;
 	}
 
@@ -392,6 +402,8 @@ public class MybatisControllerPlugin extends PluginAdapter{
 		method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "pageSize","@RequestParam(required=false,value=\"pageSize\",defaultValue=\"10\")"));
 		method.setVisibility(JavaVisibility.PUBLIC);
 		method.addAnnotation("@GetMapping(\"/"+methodName+"\")");
+		String info = "分页获取"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
+		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
 		sb.append("Page<"+pojoType.getShortName()+">");
 		sb.append(" "+toLowerCase(pojoType.getShortName())+"Page");
@@ -407,7 +419,7 @@ public class MybatisControllerPlugin extends PluginAdapter{
 		sb.append("\r\n\t\t");
 		sb.append("return new APIObjectJson(pageInfo);");
 		method.addBodyLine(sb.toString());
-		addMethodComment(method,"分页获取多个"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark));
+		addMethodComment(method,info);
 		return method;
 	}
 
@@ -591,7 +603,7 @@ public class MybatisControllerPlugin extends PluginAdapter{
 			topLevelClass.addImportedType(RestController);
 			topLevelClass.addImportedType(GetMapping);
 			topLevelClass.addImportedType(PostMapping);
-			topLevelClass.addImportedType(Autowired);
+//			topLevelClass.addImportedType(Autowired);
 			topLevelClass.addImportedType(ModelAttribute);
 			topLevelClass.addImportedType(RequestParam);
 			topLevelClass.addImportedType(RequiredArgsConstructor);

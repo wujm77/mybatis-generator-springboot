@@ -61,8 +61,26 @@ public class DeleteByPrimaryKeyElementGenerator extends
         context.getCommentGenerator().addComment(answer);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("delete from "); //$NON-NLS-1$
-        sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
+
+
+        boolean hasIsDelete = false;
+        for (IntrospectedColumn introspectedColumn : introspectedTable
+                .getAllColumns()) {
+            if("is_delete".equals(introspectedColumn.getActualColumnName())){
+                hasIsDelete = true;
+            }
+
+        }
+
+        if(hasIsDelete){
+            sb.append("update  "); //$NON-NLS-1$
+            sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
+            sb.append(" set is_delete = 1 ");
+        }else {
+            sb.append("delete from "); //$NON-NLS-1$
+            sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
+        }
+
         answer.addElement(new TextElement(sb.toString()));
 
         boolean and = false;
