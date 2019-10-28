@@ -1,4 +1,10 @@
 # 版本更新记录
+
+## 2019-10-28 r1.0.0.9 wujm
+[add]增加swager支持
+[add]增加lombok支持
+[update]新增MybatisControllerPluginPost方法，
+
 ## 2019-07-23 r1.0.0.8 wujm
 [add]增加swager支持
 [add]增加lombok支持

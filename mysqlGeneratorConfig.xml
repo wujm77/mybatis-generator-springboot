@@ -19,24 +19,32 @@
         <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
 	 	<!-- 生成serveice层代码 -->
         <plugin type="org.mybatis.generator.plugins.MybatisServicePlugin">
-			<property name="targetPackage" value="cn.com.scooper.service.base" />
-			<property name="implementationPackage" value="cn.com.scooper.impl.base"/>
+			<property name="targetPackage" value="cn.com.scooper.fire.fire.service.fire" />
+			<property name="implementationPackage" value="cn.com.scooper.fire.fire.impl.fire"/>
 			<property name="targetProject" value="src" />
 			<property name="enableAnnotation" value="true"/>
 		</plugin>
 		<!-- 生成controller层代码-->
-		<plugin type="org.mybatis.generator.plugins.MybatisControllerPlugin">
-			<property name="servicePackage" value="cn.com.scooper.service.base"/> 
-			<property name="controllerPackage" value="cn.com.scooper.controller.data" />
+		<plugin type="org.mybatis.generator.plugins.MybatisControllerPluginPost">
+			<property name="servicePackage" value="cn.com.scooper.fire.fire.service.fire"/> 
+			<property name="controllerPackage" value="cn.com.scooper.fire.fire.controller.fire" />
 			<property name="targetProject" value="src"/>
 			<property name="enableAnnotation" value="true"/>
 		</plugin>
+
+		<!--<plugin type="org.mybatis.generator.plugins.MybatisControllerPlugin">-->
+			<!--<property name="servicePackage" value="cn.com.scooper.fire.fire.service.fire"/>-->
+			<!--<property name="controllerPackage" value="cn.com.scooper.fire.fire.controller.fire" />-->
+			<!--<property name="targetProject" value="src"/>-->
+			<!--<property name="enableAnnotation" value="true"/>-->
+		<!--</plugin>-->
+
         <!-- 实体类添加注释信息 -->
 		<commentGenerator type="org.mybatis.generator.codegen.mybatis3.model.MyCommentGenerator"/>
                    
    		<!-- 【数据库连接，必须要有的，使用这个配置链接数据库】-->
 		<!-- @TODO:是否可以扩展-->
-		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost/test?useSSL=false" userId="root" password="root">
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.106.32:3306/DB_SC_FIRE_PROTECTION?useSSL=false" userId="showclear" password="showclear">
         	<!-- 这里面可以设置property属性，每一个property属性都设置到配置的Driver上 -->
     	</jdbcConnection>
 
@@ -59,7 +67,7 @@
         <!-- 3，查询类-->
         <!-- targetPackage：生成的类要放的包，真实的包受enableSubPackages属性控制；-->
         <!-- targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录-->
-		<javaModelGenerator targetPackage="cn.com.scooper.pojo.po.base" targetProject="src">    <!-- ../mybatis-generator/src/main/java -->
+		<javaModelGenerator targetPackage="cn.com.scooper.fire.fire.pojo.po.fire" targetProject="src">    <!-- ../mybatis-generator/src/main/java -->
 			<!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false --> 
 			<property name="enableSubPackages" value="true" />
 			<!-- for MyBatis3/MyBatis3Simple自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；-->
@@ -76,13 +84,13 @@
 		</javaModelGenerator>
 		
 		<!--【生成映射XML】-->
-		<sqlMapGenerator targetPackage="resources.config.mappers.base.rota" targetProject="src">
+		<sqlMapGenerator targetPackage="resources.config.mappers.fire" targetProject="src">
 			<!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
         	<property name="enableSubPackages" value="true"/>
 		</sqlMapGenerator> 
 		
 		<!-- 【生成映射类】 -->
-		<javaClientGenerator type="XMLMAPPER" targetPackage="cn.com.scooper.dao.base" targetProject="src">
+		<javaClientGenerator type="XMLMAPPER" targetPackage="cn.com.scooper.fire.fire.dao.fire" targetProject="src">
 			<!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
 			<property name="enableSubPackages" value="true" />
 			<!-- 可以为所有生成的接口添加一个父接口，但是MBG只负责生成，不负责检查-->
@@ -98,8 +106,10 @@
 		<!-- /table>  -->
 
 
-		<table tableName="t_user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-			   selectByExampleQueryId="false" >
+		<table tableName="T_DEV_EVENT" domainObjectName="DevEvent" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" 
+		selectByExampleQueryId="false">
+		<!-- 如果数据库中的字段为text或者blob这种大文本类型时，使用columnOverride，column为你需要覆盖的数据库字段，jdbcType为指定的类型-->
+			<!-- <columnOverride column="note_data" jdbcType="VARCHAR"/> -->
 		</table>
 
 	</context>
