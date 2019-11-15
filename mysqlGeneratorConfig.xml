@@ -25,7 +25,7 @@
 			<property name="enableAnnotation" value="true"/>
 		</plugin>
 		<!-- 生成controller层代码-->
-		<plugin type="org.mybatis.generator.plugins.MybatisControllerPluginPost">
+		<plugin type="org.mybatis.generator.plugins.MybatisControllerPluginNormal">
 			<property name="servicePackage" value="cn.com.scooper.fire.fire.service.fire"/> 
 			<property name="controllerPackage" value="cn.com.scooper.fire.fire.controller.fire" />
 			<property name="targetProject" value="src"/>
