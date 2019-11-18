@@ -270,7 +270,7 @@ public class MybatisControllerPluginNormal extends PluginAdapter{
 		method.setReturnType(APIRespJson);
 		method.addParameter(new Parameter(pojoType, toLowerCase(pojoType.getShortName()),"@ModelAttribute"));
 		method.setVisibility(JavaVisibility.PUBLIC);
-		method.addAnnotation("@PostMapping(\"/\")");
+        method.addAnnotation("@PostMapping(\"/"+methodName+"\")");
 		String info = "获取单个"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
 		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
@@ -299,7 +299,7 @@ public class MybatisControllerPluginNormal extends PluginAdapter{
 		method.setReturnType(APIRespJson);
 		method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "id","@RequestParam"));
 		method.setVisibility(JavaVisibility.PUBLIC);
-		method.addAnnotation("@PostMapping(\"/{id}\")");
+        method.addAnnotation("@GetMapping(\"/"+methodName+"\")");
 		String info = "根据id删除"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
 		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
@@ -328,7 +328,7 @@ public class MybatisControllerPluginNormal extends PluginAdapter{
 		method.setReturnType(APIRespJson);
 		method.addParameter(new Parameter(pojoType, toLowerCase(pojoType.getShortName()),"@ModelAttribute"));
 		method.setVisibility(JavaVisibility.PUBLIC);
-		method.addAnnotation("@PostMapping(\"/\")");
+        method.addAnnotation("@PostMapping(\"/"+methodName+"\")");
 		String info = "修改"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
 		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
@@ -350,7 +350,7 @@ public class MybatisControllerPluginNormal extends PluginAdapter{
 		method.setReturnType(APIRespJson);
 		method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "id","@PathVariable"));
 		method.setVisibility(JavaVisibility.PUBLIC);
-		method.addAnnotation("@GetMapping(\"/{id}\")");
+        method.addAnnotation("@GetMapping(\"/"+methodName+"\")");
 		String info = "获取单个"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
 		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
