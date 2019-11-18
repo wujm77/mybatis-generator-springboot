@@ -348,7 +348,7 @@ public class MybatisControllerPluginNormal extends PluginAdapter{
 		Method method = new Method();
 		method.setName(methodName);
 		method.setReturnType(APIRespJson);
-		method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "id","@PathVariable"));
+		method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "id","@RequestParam"));
 		method.setVisibility(JavaVisibility.PUBLIC);
         method.addAnnotation("@GetMapping(\"/"+methodName+"\")");
 		String info = "获取单个"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);

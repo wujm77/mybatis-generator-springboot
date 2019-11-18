@@ -297,7 +297,7 @@ public class MybatisControllerPlugin extends PluginAdapter{
 		Method method = new Method();
 		method.setName(methodName);
 		method.setReturnType(APIRespJson);
-		method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "id","@RequestParam"));
+		method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "id","@PathVariable"));
 		method.setVisibility(JavaVisibility.PUBLIC);
 		method.addAnnotation("@DeleteMapping(\"/{id}\")");
 		String info = "根据id删除"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
