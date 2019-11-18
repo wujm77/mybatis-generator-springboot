@@ -221,17 +221,17 @@ public class MybatisControllerPluginNormal extends PluginAdapter{
 
 		topLevelClass.addAnnotation("@RequiredArgsConstructor");
 
-		topLevelClass.addMethod(getOtherGetboolean("get", introspectedTable, tableName));
+		topLevelClass.addMethod(getOtherGetboolean("get"+tableName, introspectedTable, tableName));
 
-		topLevelClass.addMethod(getOtherSaveboolean("save", introspectedTable, tableName));
+		topLevelClass.addMethod(getOtherSaveboolean("save"+tableName, introspectedTable, tableName));
 
-		topLevelClass.addMethod(getOtherDeleteboolean("remove", introspectedTable, tableName));
+		topLevelClass.addMethod(getOtherDeleteboolean("remove"+tableName, introspectedTable, tableName));
 
-		topLevelClass.addMethod(getOtherUpdateboolean("update", introspectedTable, tableName));
+		topLevelClass.addMethod(getOtherUpdateboolean("update"+tableName, introspectedTable, tableName));
 
-		topLevelClass.addMethod(getOtherListboolean("list", introspectedTable, tableName));
+		topLevelClass.addMethod(getOtherListboolean("list"+tableName, introspectedTable, tableName));
 
-		topLevelClass.addMethod(getOtherPageboolean("page", introspectedTable, tableName));
+		topLevelClass.addMethod(getOtherPageboolean("page"+tableName, introspectedTable, tableName));
 
 		GeneratedJavaFile file = new GeneratedJavaFile(topLevelClass, project, context.getJavaFormatter());
 
@@ -271,11 +271,11 @@ public class MybatisControllerPluginNormal extends PluginAdapter{
 		method.addParameter(new Parameter(pojoType, toLowerCase(pojoType.getShortName()),"@ModelAttribute"));
 		method.setVisibility(JavaVisibility.PUBLIC);
         method.addAnnotation("@PostMapping(\"/"+methodName+"\")");
-		String info = "获取单个"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
+		String info = "保存单个"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
 		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
 		sb.append(toLowerCase(interfaceType.getShortName())+".");
-		sb.append(methodName+tableName);
+		sb.append(methodName);
 		sb.append("(");
 		sb.append(toLowerCase(pojoType.getShortName()));
 		sb.append(");");
@@ -304,7 +304,7 @@ public class MybatisControllerPluginNormal extends PluginAdapter{
 		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
 		sb.append(toLowerCase(interfaceType.getShortName())+".");
-		sb.append(methodName+tableName);
+		sb.append(methodName);
 		sb.append("(");
 		sb.append("id");
 		sb.append(");");
@@ -333,7 +333,7 @@ public class MybatisControllerPluginNormal extends PluginAdapter{
 		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
 		sb.append(toLowerCase(interfaceType.getShortName())+".");
-		sb.append(methodName+tableName);
+		sb.append(methodName);
 		sb.append("(");
 		sb.append(toLowerCase(pojoType.getShortName()));
 		sb.append(");");
@@ -358,7 +358,7 @@ public class MybatisControllerPluginNormal extends PluginAdapter{
 		sb.append(" "+toLowerCase(pojoType.getShortName()));
 		sb.append(" = ");
 		sb.append(toLowerCase(interfaceType.getShortName())+".");
-		sb.append(methodName+tableName);
+		sb.append(methodName);
 		sb.append("(");
 		sb.append("id");
 		sb.append(");");
