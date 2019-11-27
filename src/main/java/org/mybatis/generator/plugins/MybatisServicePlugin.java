@@ -26,8 +26,8 @@ public class MybatisServicePlugin extends PluginAdapter{
 	private FullyQualifiedJavaType PageInfo;
 	private FullyQualifiedJavaType Page;
 	private FullyQualifiedJavaType ISelect;
-	private FullyQualifiedJavaType slf4jLogger;
-	private FullyQualifiedJavaType slf4jLoggerFactory;
+//	private FullyQualifiedJavaType slf4jLogger;
+//	private FullyQualifiedJavaType slf4jLoggerFactory;
 	private FullyQualifiedJavaType serviceType;
 	private FullyQualifiedJavaType daoType;
 	private FullyQualifiedJavaType interfaceType;
@@ -38,6 +38,7 @@ public class MybatisServicePlugin extends PluginAdapter{
 	private FullyQualifiedJavaType service;
 	private FullyQualifiedJavaType returnType;
 	private FullyQualifiedJavaType Date;
+	private FullyQualifiedJavaType Log4j2;
 	private String servicePack;
 	private String serviceImplPack;
 	private String project;
@@ -67,13 +68,14 @@ public class MybatisServicePlugin extends PluginAdapter{
 	private boolean enableGet = true;
 	private boolean enablePage = true;
 	public MybatisServicePlugin() {
-		slf4jLogger = new FullyQualifiedJavaType("org.slf4j.Logger");
-		slf4jLoggerFactory = new FullyQualifiedJavaType("org.slf4j.LoggerFactory");
+//		slf4jLogger = new FullyQualifiedJavaType("org.slf4j.Logger");
+//		slf4jLoggerFactory = new FullyQualifiedJavaType("org.slf4j.LoggerFactory");
 		PageInfo = new FullyQualifiedJavaType("com.github.pagehelper.PageInfo");
 		PageHelper = new FullyQualifiedJavaType("com.github.pagehelper.PageHelper");
 		Page =  new FullyQualifiedJavaType("com.github.pagehelper.Page");
 		ISelect = new FullyQualifiedJavaType("com.github.pagehelper.ISelect");
 		Date = new FullyQualifiedJavaType("java.util.Date");
+		Log4j2 = new FullyQualifiedJavaType("lombok.extern.log4j.Log4j2");
 		methods = new ArrayList<Method>();
 	}
 
@@ -283,6 +285,7 @@ public class MybatisServicePlugin extends PluginAdapter{
 
 		topLevelClass.addAnnotation("@Service");
         topLevelClass.addAnnotation("@RequiredArgsConstructor");
+		topLevelClass.addAnnotation("@Log4j2");
 		topLevelClass.addImportedType(service);
 		// add import dao
 		addField(topLevelClass, tableName);
@@ -688,12 +691,13 @@ public class MybatisServicePlugin extends PluginAdapter{
 		topLevelClass.addImportedType(daoType);
 		topLevelClass.addImportedType(interfaceType);
 		topLevelClass.addImportedType(pojoType);
-		topLevelClass.addImportedType(slf4jLogger);
-		topLevelClass.addImportedType(slf4jLoggerFactory);
+//		topLevelClass.addImportedType(slf4jLogger);
+//		topLevelClass.addImportedType(slf4jLoggerFactory);
 		topLevelClass.addImportedType(Page);
 		topLevelClass.addImportedType(PageHelper);
 		topLevelClass.addImportedType(ISelect);
 		topLevelClass.addImportedType(Date);
+		topLevelClass.addImportedType(Log4j2);
 		if (enableAnnotation) {
 			topLevelClass.addImportedType(service);
 			topLevelClass.addImportedType(RequiredArgsConstructor);

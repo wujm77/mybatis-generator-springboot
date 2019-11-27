@@ -28,8 +28,8 @@ public class MybatisControllerPlugin extends PluginAdapter{
 
 	private FullyQualifiedJavaType Page;
 	private FullyQualifiedJavaType PageInfo;
-	private FullyQualifiedJavaType slf4jLogger;
-	private FullyQualifiedJavaType slf4jLoggerFactory;
+//	private FullyQualifiedJavaType slf4jLogger;
+//	private FullyQualifiedJavaType slf4jLoggerFactory;
 	private FullyQualifiedJavaType APIRespJson;
 	private FullyQualifiedJavaType APIObjectJson;
 	private FullyQualifiedJavaType APIListJson;
@@ -50,6 +50,7 @@ public class MybatisControllerPlugin extends PluginAdapter{
 	private FullyQualifiedJavaType RequiredArgsConstructor;
 	private FullyQualifiedJavaType Api;
 	private FullyQualifiedJavaType ApiOperation;
+    private FullyQualifiedJavaType Log4j2;
 	private String servicePack;
 	private String controllerlPack;
 	private String project;
@@ -74,8 +75,8 @@ public class MybatisControllerPlugin extends PluginAdapter{
 
 	public MybatisControllerPlugin() {
 		super();
-		slf4jLogger = new FullyQualifiedJavaType("org.slf4j.Logger");
-		slf4jLoggerFactory = new FullyQualifiedJavaType("org.slf4j.LoggerFactory");
+//		slf4jLogger = new FullyQualifiedJavaType("org.slf4j.Logger");
+//		slf4jLoggerFactory = new FullyQualifiedJavaType("org.slf4j.LoggerFactory");
 		APIRespJson = new FullyQualifiedJavaType("cn.com.scooper.common.resp.APIRespJson");
 		APIObjectJson = new FullyQualifiedJavaType("cn.com.scooper.common.resp.APIObjectJson");
 		APIListJson = new FullyQualifiedJavaType("cn.com.scooper.common.resp.APIListJson");
@@ -83,6 +84,7 @@ public class MybatisControllerPlugin extends PluginAdapter{
 		PageInfo = new FullyQualifiedJavaType("com.github.pagehelper.PageInfo");
 		Api = new FullyQualifiedJavaType("io.swagger.annotations.Api");
 		ApiOperation = new FullyQualifiedJavaType("io.swagger.annotations.ApiOperation");
+        Log4j2 = new FullyQualifiedJavaType("lombok.extern.log4j.Log4j2");
 		methods = new ArrayList<Method>();
 	}
 
@@ -218,7 +220,7 @@ public class MybatisControllerPlugin extends PluginAdapter{
 		topLevelClass.addAnnotation("@RequestMapping(\"/data/"+path+"\")");
 
 		topLevelClass.addAnnotation("@Api(value = \""+introspectedTable.getFullyQualifiedTable().getRemarks()+"\", description = \""+introspectedTable.getFullyQualifiedTable().getRemarks()+"\", tags = {\"/data/"+path+"\"})");
-
+        topLevelClass.addAnnotation("@Log4j2");
 		topLevelClass.addAnnotation("@RequiredArgsConstructor");
 
 		topLevelClass.addMethod(getOtherGetboolean("get", introspectedTable, tableName));
@@ -591,8 +593,9 @@ public class MybatisControllerPlugin extends PluginAdapter{
 		topLevelClass.addImportedType(pojoType);
 		topLevelClass.addImportedType(Page);
 		topLevelClass.addImportedType(PageInfo);
-		topLevelClass.addImportedType(slf4jLogger);
-		topLevelClass.addImportedType(slf4jLoggerFactory);
+//		topLevelClass.addImportedType(slf4jLogger);
+//		topLevelClass.addImportedType(slf4jLoggerFactory);
+        topLevelClass.addImportedType(Log4j2);
 		topLevelClass.addImportedType(APIListJson);
 		topLevelClass.addImportedType(APIObjectJson);
 		topLevelClass.addImportedType(APIRespJson);
