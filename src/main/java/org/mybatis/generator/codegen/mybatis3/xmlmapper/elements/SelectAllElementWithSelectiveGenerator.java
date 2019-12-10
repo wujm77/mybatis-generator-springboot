@@ -94,7 +94,7 @@ public class SelectAllElementWithSelectiveGenerator extends
         answer.addElement(dynamicElement);
         StringBuilder sb2 = new StringBuilder();
         sb2.setLength(0);
-        sb2.append(" 1=1 ");
+//        sb2.append(" 1=1 ");
         dynamicElement.addElement(new TextElement(sb2.toString()));
         for (IntrospectedColumn introspectedColumn : introspectedTable
                 .getNonPrimaryKeyColumns()) {
