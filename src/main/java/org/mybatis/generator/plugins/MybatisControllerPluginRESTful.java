@@ -24,7 +24,7 @@ import org.mybatis.generator.internal.util.StringUtility;
  * @author wujm
  *
  */
-public class MybatisControllerPlugin extends PluginAdapter{
+public class MybatisControllerPluginRESTful extends PluginAdapter{
 
 	private FullyQualifiedJavaType Page;
 	private FullyQualifiedJavaType PageInfo;
@@ -73,7 +73,7 @@ public class MybatisControllerPlugin extends PluginAdapter{
 	private boolean enableList = true;
 	private boolean enablePage = true;
 
-	public MybatisControllerPlugin() {
+	public MybatisControllerPluginRESTful() {
 		super();
 //		slf4jLogger = new FullyQualifiedJavaType("org.slf4j.Logger");
 //		slf4jLoggerFactory = new FullyQualifiedJavaType("org.slf4j.LoggerFactory");
