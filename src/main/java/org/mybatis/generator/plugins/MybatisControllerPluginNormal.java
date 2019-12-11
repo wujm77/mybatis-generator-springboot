@@ -192,7 +192,7 @@ public class MybatisControllerPluginNormal extends PluginAdapter{
 		addController(topLevelClass,introspectedTable, tableName,files);
 
 		// 日志类
-		addLogger(topLevelClass);
+//		addLogger(topLevelClass);
 
 		return files;
 	}

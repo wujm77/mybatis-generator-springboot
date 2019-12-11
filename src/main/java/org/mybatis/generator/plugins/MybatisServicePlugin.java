@@ -217,7 +217,7 @@ public class MybatisServicePlugin extends PluginAdapter{
 		addServiceImpl(topLevelClass,introspectedTable, tableName, files);
 		
 		// 日志类
-		addLogger(topLevelClass);
+//		addLogger(topLevelClass);
 
 		return files;
 	}
