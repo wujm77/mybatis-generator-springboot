@@ -88,6 +88,7 @@ public class SelectByPrimaryKeyElementGenerator extends
         sb.append("from "); //$NON-NLS-1$
         sb.append(introspectedTable
                 .getAliasedFullyQualifiedTableNameAtRuntime());
+        sb.append(" t");
         answer.addElement(new TextElement(sb.toString()));
 
         boolean and = false;
