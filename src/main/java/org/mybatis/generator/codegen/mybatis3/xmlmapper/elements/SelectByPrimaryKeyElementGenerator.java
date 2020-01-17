@@ -96,9 +96,9 @@ public class SelectByPrimaryKeyElementGenerator extends
                 .getPrimaryKeyColumns()) {
             sb.setLength(0);
             if (and) {
-                sb.append("  and "); //$NON-NLS-1$
+                sb.append("  and t."); //$NON-NLS-1$
             } else {
-                sb.append("where "); //$NON-NLS-1$
+                sb.append("where t."); //$NON-NLS-1$
                 and = true;
             }
 

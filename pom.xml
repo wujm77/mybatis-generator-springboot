@@ -8,7 +8,7 @@
 	<name>MyBatis Generator springboot</name>
 	<description>官方1.3.2改编版本</description>
 	<properties>
-		<java.version>1.6</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
