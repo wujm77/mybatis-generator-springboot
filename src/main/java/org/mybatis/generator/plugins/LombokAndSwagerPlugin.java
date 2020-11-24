@@ -34,24 +34,26 @@ public class LombokAndSwagerPlugin extends PluginAdapter {
 
         topLevelClass.addImportedType(data);
         topLevelClass.addAnnotation("@Data");
-        topLevelClass.addJavaDocLine("import org.springframework.format.annotation.DateTimeFormat;");
-        topLevelClass.addJavaDocLine("import com.fasterxml.jackson.annotation.JsonFormat;");
-        topLevelClass.addJavaDocLine("import io.swagger.annotations.ApiModel;");
-        topLevelClass.addJavaDocLine("import io.swagger.annotations.ApiModelProperty;");
+//        topLevelClass.addJavaDocLine("import org.springframework.format.annotation.DateTimeFormat;");
+//        topLevelClass.addJavaDocLine("import com.fasterxml.jackson.annotation.JsonFormat;");
+//        topLevelClass.addJavaDocLine("import io.swagger.annotations.ApiModel;");
+//        topLevelClass.addJavaDocLine("import io.swagger.annotations.ApiModelProperty;");
 
-        topLevelClass.addAnnotation("@ApiModel(\""+introspectedTable.getFullyQualifiedTable().getRemarks()+"\")");
+//        topLevelClass.addAnnotation("@ApiModel(\""+introspectedTable.getFullyQualifiedTable().getRemarks()+"\")");
         return true;
     }
 
 
 
-    @Override
-    public boolean modelFieldGenerated(Field field, TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn, IntrospectedTable introspectedTable, ModelClassType modelClassType) {
+//    @Override
+//    public boolean modelFieldGenerated(Field field, TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn, IntrospectedTable introspectedTable, ModelClassType modelClassType) {
+//
+//        field.addAnnotation("@ApiModelProperty(\""+introspectedColumn.getRemarks()+"\")");
+//
+//        return true;
+//    }
 
-        field.addAnnotation("@ApiModelProperty(\""+introspectedColumn.getRemarks()+"\")");
 
-        return true;
-    }
 
     @Override
     public boolean modelGetterMethodGenerated(Method method, TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn, IntrospectedTable introspectedTable, ModelClassType modelClassType) {

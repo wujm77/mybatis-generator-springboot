@@ -855,7 +855,7 @@ public abstract class IntrospectedTable {
         sb.append(pakkage);
         sb.append('.');
         sb.append(fullyQualifiedTable.getDomainObjectName());
-        		sb.append("Po");//add "Po" to POJO
+//        		sb.append("Po");//add "Po" to POJO
         setBaseRecordType(sb.toString());
 
         sb.setLength(0);

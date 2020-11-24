@@ -73,8 +73,8 @@ public class MybatisControllerPluginPost extends PluginAdapter{
 		APIListJson = new FullyQualifiedJavaType("cn.com.scooper.common.resp.APIListJson");
 		Page = new FullyQualifiedJavaType("com.github.pagehelper.Page");
 		PageInfo = new FullyQualifiedJavaType("com.github.pagehelper.PageInfo");
-		Api = new FullyQualifiedJavaType("io.swagger.annotations.Api");
-		ApiOperation = new FullyQualifiedJavaType("io.swagger.annotations.ApiOperation");
+//		Api = new FullyQualifiedJavaType("io.swagger.annotations.Api");
+//		ApiOperation = new FullyQualifiedJavaType("io.swagger.annotations.ApiOperation");
         Log4j2 = new FullyQualifiedJavaType("lombok.extern.log4j.Log4j2");
 		methods = new ArrayList<Method>();
 	}
@@ -82,7 +82,6 @@ public class MybatisControllerPluginPost extends PluginAdapter{
 	/**
 	 * 读取配置文件
 	 */
-	@Override
 	public boolean validate(List<String> warnings) {
 
 		String enableAnnotation = properties.getProperty("enableAnnotation");
@@ -264,8 +263,8 @@ public class MybatisControllerPluginPost extends PluginAdapter{
 		method.addParameter(new Parameter(pojoType, toLowerCase(pojoType.getShortName()),"@ModelAttribute"));
 		method.setVisibility(JavaVisibility.PUBLIC);
 		method.addAnnotation("@PostMapping(\"/"+methodName+"\")");
-		String info = "获取单个"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
-		method.addAnnotation("@ApiOperation(\""+info+"\")");
+		String info = "保存单个"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
+//		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
 		sb.append(toLowerCase(interfaceType.getShortName())+".");
 		sb.append(methodName);
@@ -294,7 +293,7 @@ public class MybatisControllerPluginPost extends PluginAdapter{
 		method.setVisibility(JavaVisibility.PUBLIC);
 		method.addAnnotation("@PostMapping(\"/"+methodName+"\")");
 		String info = "根据id删除"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
-		method.addAnnotation("@ApiOperation(\""+info+"\")");
+//		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
 		sb.append(toLowerCase(interfaceType.getShortName())+".");
 		sb.append(methodName);
@@ -323,7 +322,7 @@ public class MybatisControllerPluginPost extends PluginAdapter{
 		method.setVisibility(JavaVisibility.PUBLIC);
 		method.addAnnotation("@PostMapping(\"/"+methodName+"\")");
 		String info = "修改"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
-		method.addAnnotation("@ApiOperation(\""+info+"\")");
+//		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
 		sb.append(toLowerCase(interfaceType.getShortName())+".");
 		sb.append(methodName);
@@ -345,7 +344,7 @@ public class MybatisControllerPluginPost extends PluginAdapter{
 		method.setVisibility(JavaVisibility.PUBLIC);
 		method.addAnnotation("@PostMapping(\"/"+methodName+"\")");
 		String info = "获取单个"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
-		method.addAnnotation("@ApiOperation(\""+info+"\")");
+//		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
 		sb.append(pojoType.getShortName());
 		sb.append(" "+toLowerCase(pojoType.getShortName()));
@@ -371,7 +370,7 @@ public class MybatisControllerPluginPost extends PluginAdapter{
 		method.setVisibility(JavaVisibility.PUBLIC);
 		method.addAnnotation("@PostMapping(\"/"+methodName+"\")");
 		String info = "列表获取"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
-		method.addAnnotation("@ApiOperation(\""+info+"\")");
+//		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
 		sb.append("List<"+pojoType.getShortName()+">");
 		sb.append(" "+toLowerCase(pojoType.getShortName())+"List");
@@ -396,7 +395,7 @@ public class MybatisControllerPluginPost extends PluginAdapter{
 		method.setVisibility(JavaVisibility.PUBLIC);
 		method.addAnnotation("@PostMapping(\"/"+methodName+"\")");
 		String info = "分页获取"+(tableRemark.length() == 0 ? pojoType.getShortName():tableRemark);
-		method.addAnnotation("@ApiOperation(\""+info+"\")");
+//		method.addAnnotation("@ApiOperation(\""+info+"\")");
 		StringBuilder sb = new StringBuilder();
 		sb.append("Page<"+pojoType.getShortName()+">");
 		sb.append(" "+toLowerCase(pojoType.getShortName())+"Page");
