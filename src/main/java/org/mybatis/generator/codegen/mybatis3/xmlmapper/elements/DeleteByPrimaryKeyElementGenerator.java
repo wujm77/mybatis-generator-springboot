@@ -66,7 +66,7 @@ public class DeleteByPrimaryKeyElementGenerator extends
         boolean hasIsDelete = false;
         for (IntrospectedColumn introspectedColumn : introspectedTable
                 .getAllColumns()) {
-            if("zjy_deleted".equals(introspectedColumn.getActualColumnName())||"deleted".equals(introspectedColumn.getActualColumnName())){
+            if("zjy_deleted".equals(introspectedColumn.getActualColumnName())){
                 hasIsDelete = true;
             }
 
@@ -77,8 +77,9 @@ public class DeleteByPrimaryKeyElementGenerator extends
             sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
             sb.append(" set zjy_deleted = 1 ");
         }else {
-            sb.append("delete from "); //$NON-NLS-1$
+            sb.append("update  "); //$NON-NLS-1$
             sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
+            sb.append(" set deleted = 1 ");
         }
 
         answer.addElement(new TextElement(sb.toString()));

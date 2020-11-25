@@ -25,12 +25,10 @@ import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 import org.mybatis.generator.config.PropertyRegistry;
 import org.mybatis.generator.internal.util.StringUtility;
 
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-
 /**
- * 
+ *
  * @author Jeff Butler
- * 
+ *
  */
 public class SimpleSelectAllElementGenerator extends
         AbstractXmlElementGenerator {
@@ -48,22 +46,33 @@ public class SimpleSelectAllElementGenerator extends
         answer.addAttribute(new Attribute("resultMap", //$NON-NLS-1$
                 introspectedTable.getBaseResultMapId()));
 
+        String parameterType = introspectedTable.getPrimaryKeyColumns().get(0)
+                .getFullyQualifiedJavaType().toString().replace("po","param")+"PageParam";
+        answer.addAttribute(new Attribute("parameterType", //$NON-NLS-1$
+                parameterType));
+
         context.getCommentGenerator().addComment(answer);
 
         StringBuilder sb = new StringBuilder();
         sb.append("select "); //$NON-NLS-1$
+        Iterator<IntrospectedColumn> iter = introspectedTable.getAllColumns()
+                .iterator();
+        while (iter.hasNext()) {
+            sb.append(MyBatis3FormattingUtilities.getSelectListPhrase(iter
+                    .next()));
 
-        if (stringHasValue(introspectedTable
-                .getSelectByPrimaryKeyQueryId())) {
-            sb.append('\'');
-            sb.append(introspectedTable.getSelectByPrimaryKeyQueryId());
-            sb.append("' as QUERYID,"); //$NON-NLS-1$
+            if (iter.hasNext()) {
+                sb.append(", "); //$NON-NLS-1$
+            }
+
+            if (sb.length() > 80) {
+                answer.addElement(new TextElement(sb.toString()));
+                sb.setLength(0);
+            }
         }
-        answer.addElement(new TextElement(sb.toString()));
-        answer.addElement(getBaseColumnListElement());
-        if (introspectedTable.hasBLOBColumns()) {
-            answer.addElement(new TextElement(",")); //$NON-NLS-1$
-            answer.addElement(getBlobColumnListElement());
+
+        if (sb.length() > 0) {
+            answer.addElement((new TextElement(sb.toString())));
         }
 
         sb.setLength(0);
@@ -71,7 +80,7 @@ public class SimpleSelectAllElementGenerator extends
         sb.append(introspectedTable
                 .getAliasedFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
-        
+
         String orderByClause = introspectedTable.getTableConfigurationProperty(PropertyRegistry.TABLE_SELECT_ALL_ORDER_BY_CLAUSE);
         boolean hasOrderBy = StringUtility.stringHasValue(orderByClause);
         if (hasOrderBy) {

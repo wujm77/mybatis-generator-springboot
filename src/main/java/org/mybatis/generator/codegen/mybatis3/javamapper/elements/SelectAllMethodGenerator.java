@@ -59,7 +59,15 @@ public class SelectAllMethodGenerator extends AbstractJavaMapperMethodGenerator 
                 introspectedTable);
 
         addMapperAnnotations(interfaze, method);
-        FullyQualifiedJavaType parameterType= introspectedTable.getRules().calculateAllFieldsClass();
+
+        String result = introspectedTable.getRules().calculateAllFieldsClass().getFullyQualifiedName();
+
+        result = result.replace(".po.",".param.");
+        result +="PageParam";
+
+        FullyQualifiedJavaType parameterType= new FullyQualifiedJavaType(result);
+
+        importedTypes.add(parameterType);
         method.addParameter(new Parameter(parameterType, "record")); 
 
         if (context.getPlugins().clientSelectAllMethodGenerated(method,
