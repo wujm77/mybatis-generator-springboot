@@ -62,8 +62,8 @@ public class SelectAllMethodGenerator extends AbstractJavaMapperMethodGenerator 
 
         String result = introspectedTable.getRules().calculateAllFieldsClass().getFullyQualifiedName();
 
-        result = result.replace(".po.",".param.");
-        result +="PageParam";
+//        result = result.replace(".po.",".param.");
+//        result +="PageParam";
 
         FullyQualifiedJavaType parameterType= new FullyQualifiedJavaType(result);
 

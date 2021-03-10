@@ -408,10 +408,14 @@ public class MybatisServicePluginZjy extends PluginAdapter{
 
 		method.setVisibility(JavaVisibility.PUBLIC);
 		StringBuilder sb = new StringBuilder();
+
+		sb.append(pojoType.getShortName()+" "+toLowerCase(pojoType.getShortName())+" =");
+		sb.append("ObjectCopyUtil.bean2Bean(param,"+pojoType.getShortName()+".class);");
+		sb.append("\r\n\t\t");
 		sb.append("Page<"+pojoType.getShortName()+">"+" "+"page = ");
 		sb.append("PageHelper.startPage(param.getPage(),param.getRows()).doSelectPage(()->");
 		sb.append(getDaoShort());
-		sb.append("selectAll(param)");
+		sb.append("selectAll("+toLowerCase(pojoType.getShortName())+")");
 		sb.append(");");
 		sb.append("\r\n\t\t");
         sb.append("PageVO<"+pojoType.getShortName()+"> pageVO = new PageVO<>();");
@@ -719,11 +723,11 @@ public class MybatisServicePluginZjy extends PluginAdapter{
         interfaces.addImportedType(RestResult);
 		String pack = servicePack.substring(servicePack.lastIndexOf(".")+1);
 
-		interfaces.addImportedType(new FullyQualifiedJavaType("com.zjy.mall.pojo.param."+pack+"."+pojoType.getShortName()+"GetParam"));
-		interfaces.addImportedType(new FullyQualifiedJavaType("com.zjy.mall.pojo.param."+pack+"."+pojoType.getShortName()+"DeleteParam"));
-		interfaces.addImportedType(new FullyQualifiedJavaType("com.zjy.mall.pojo.param."+pack+"."+pojoType.getShortName()+"UpdateParam"));
-		interfaces.addImportedType(new FullyQualifiedJavaType("com.zjy.mall.pojo.param."+pack+"."+pojoType.getShortName()+"PageParam"));
-		interfaces.addImportedType(new FullyQualifiedJavaType("com.zjy.mall.pojo.param."+pack+"."+pojoType.getShortName()+"SaveParam"));
+		interfaces.addImportedType(new FullyQualifiedJavaType("com.zjy.help.mall.pojo.param."+pack+"."+pojoType.getShortName()+"GetParam"));
+		interfaces.addImportedType(new FullyQualifiedJavaType("com.zjy.help.mall.pojo.param."+pack+"."+pojoType.getShortName()+"DeleteParam"));
+		interfaces.addImportedType(new FullyQualifiedJavaType("com.zjy.help.mall.pojo.param."+pack+"."+pojoType.getShortName()+"UpdateParam"));
+		interfaces.addImportedType(new FullyQualifiedJavaType("com.zjy.help.mall.pojo.param."+pack+"."+pojoType.getShortName()+"PageParam"));
+		interfaces.addImportedType(new FullyQualifiedJavaType("com.zjy.help.mall.pojo.param."+pack+"."+pojoType.getShortName()+"SaveParam"));
 
 //		topLevelClass.addImportedType(listType);
 		topLevelClass.addImportedType(daoType);
@@ -740,11 +744,11 @@ public class MybatisServicePluginZjy extends PluginAdapter{
 		topLevelClass.addImportedType(PageHelper);
 //		topLevelClass.addImportedType(ISelect);
         topLevelClass.addImportedType(PageVO);
-		topLevelClass.addImportedType("com.zjy.mall.pojo.param."+pack+"."+pojoType.getShortName()+"GetParam");
-		topLevelClass.addImportedType("com.zjy.mall.pojo.param."+pack+"."+pojoType.getShortName()+"DeleteParam");
-		topLevelClass.addImportedType("com.zjy.mall.pojo.param."+pack+"."+pojoType.getShortName()+"UpdateParam");
-		topLevelClass.addImportedType("com.zjy.mall.pojo.param."+pack+"."+pojoType.getShortName()+"PageParam");
-		topLevelClass.addImportedType("com.zjy.mall.pojo.param."+pack+"."+pojoType.getShortName()+"SaveParam");
+		topLevelClass.addImportedType("com.zjy.help.mall.pojo.param."+pack+"."+pojoType.getShortName()+"GetParam");
+		topLevelClass.addImportedType("com.zjy.help.mall.pojo.param."+pack+"."+pojoType.getShortName()+"DeleteParam");
+		topLevelClass.addImportedType("com.zjy.help.mall.pojo.param."+pack+"."+pojoType.getShortName()+"UpdateParam");
+		topLevelClass.addImportedType("com.zjy.help.mall.pojo.param."+pack+"."+pojoType.getShortName()+"PageParam");
+		topLevelClass.addImportedType("com.zjy.help.mall.pojo.param."+pack+"."+pojoType.getShortName()+"SaveParam");
         topLevelClass.addImportedType("com.zjy.utils.ObjectCopyUtil");
 		if (enableAnnotation) {
 			topLevelClass.addImportedType(service);

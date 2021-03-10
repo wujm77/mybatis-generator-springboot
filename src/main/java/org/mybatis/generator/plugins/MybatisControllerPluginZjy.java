@@ -595,11 +595,11 @@ public class MybatisControllerPluginZjy extends PluginAdapter{
 //		topLevelClass.addImportedType(ApiOperation);
         String pack = servicePack.substring(servicePack.lastIndexOf(".")+1);
 
-		topLevelClass.addImportedType("com.zjy.mall.pojo.param."+pack+"."+pojoType.getShortName()+"GetParam");
-		topLevelClass.addImportedType("com.zjy.mall.pojo.param."+pack+"."+pojoType.getShortName()+"DeleteParam");
-		topLevelClass.addImportedType("com.zjy.mall.pojo.param."+pack+"."+pojoType.getShortName()+"UpdateParam");
-		topLevelClass.addImportedType("com.zjy.mall.pojo.param."+pack+"."+pojoType.getShortName()+"PageParam");
-        topLevelClass.addImportedType("com.zjy.mall.pojo.param."+pack+"."+pojoType.getShortName()+"SaveParam");
+		topLevelClass.addImportedType("com.zjy.help.mall.pojo.param."+pack+"."+pojoType.getShortName()+"GetParam");
+		topLevelClass.addImportedType("com.zjy.help.mall.pojo.param."+pack+"."+pojoType.getShortName()+"DeleteParam");
+		topLevelClass.addImportedType("com.zjy.help.mall.pojo.param."+pack+"."+pojoType.getShortName()+"UpdateParam");
+		topLevelClass.addImportedType("com.zjy.help.mall.pojo.param."+pack+"."+pojoType.getShortName()+"PageParam");
+        topLevelClass.addImportedType("com.zjy.help.mall.pojo.param."+pack+"."+pojoType.getShortName()+"SaveParam");
         topLevelClass.addImportedType("com.zje.vigilante.common.extension.ValidRestAuth");
         topLevelClass.addImportedType("com.zje.vigilante.common.extension.ValidRestParam");
 		if (enableAnnotation) {
